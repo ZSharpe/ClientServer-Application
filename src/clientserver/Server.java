@@ -9,7 +9,9 @@ public class Server implements Runnable {
     
     String productFile="Record.txt";
     Socket socketThreaded;
-    
+
+
+    // Instantiate ServerSocket for connection to server.
     public ServerSocket startSocket(){
         
         try{
@@ -22,7 +24,8 @@ public class Server implements Runnable {
             return null;
         }
     }
-    
+
+    // Method to connect socket to client. Takes server socket as an argument.
     public Socket socketConnect(ServerSocket server){
         try{
             System.out.println("Waiting for connection from client....");
@@ -37,7 +40,8 @@ public class Server implements Runnable {
         }
         
     }
-    
+
+    // Reader class to interpret and return lines from the record, productFile
     synchronized public String reader(int recordLine) throws FileNotFoundException {
         Scanner reader = new Scanner(new File(productFile));
         int index=0;
@@ -52,7 +56,8 @@ public class Server implements Runnable {
         
         return "EOF";
     }
-    
+
+    // Method to return the amount of records in productFile
     synchronized public int recordCount()throws FileNotFoundException{
         Scanner scan = new Scanner(new File(productFile));
         int index=0;
@@ -62,7 +67,8 @@ public class Server implements Runnable {
         }
         return index;
     }
-    
+
+    // Method to update a specific row in the record, productFile
     synchronized public void updateRow(int row,String data){
         try{
             
@@ -92,7 +98,8 @@ public class Server implements Runnable {
 
         }
     }
-    
+
+    // Method to listen for commands from established client socket 's'. Waits for commands from client and returns based on conditional.
     synchronized public void listen(Socket s){
         
         try{
